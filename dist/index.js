@@ -3,13 +3,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = __importDefault(require("express"));
 require("dotenv/config"); // remember
+const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const cluster_1 = __importDefault(require("cluster"));
 const node_os_1 = __importDefault(require("node:os"));
 const numCPUs = node_os_1.default.cpus().length;
-if (cluster_1.default.isPrimary) {
+if (cluster_1.default.isPrimary && numCPUs > 1) {
     console.log(`Master process ${process.pid} is running`);
     for (let i = 0; i < numCPUs; i++) {
         cluster_1.default.fork();
