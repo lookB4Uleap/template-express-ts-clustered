@@ -1,5 +1,5 @@
-import express, { Express, Request, Response } from 'express';
 import 'dotenv/config'; // remember
+import express, { Express, Request, Response } from 'express';
 import cors from 'cors';
 import cluster from 'cluster';
 import os from 'node:os';
@@ -7,7 +7,7 @@ import os from 'node:os';
 const numCPUs = os.cpus().length;
 
 
-if (cluster.isPrimary) {
+if (cluster.isPrimary && numCPUs > 1) {
     console.log(`Master process ${process.pid} is running`);
 
     for (let i = 0; i < numCPUs; i++) {
